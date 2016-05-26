@@ -81,7 +81,7 @@ class ReceiverThread(threading.Thread):
 
     def dbg(self, msg):
         if self.debug:
-            print msg
+            print(msg)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -89,8 +89,6 @@ if __name__ == "__main__":
     ap.add_argument("-p", "--port", required=False, type=int, default=5000, help="Port of the Camera server. Default 5000")
 
     args = vars(ap.parse_args())
-
-    print(args)
 
     ip = args.get("ip_address")
     port = args.get("port")
