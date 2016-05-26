@@ -2,6 +2,7 @@ import socket
 import cv2
 import numpy
 import threading
+import argparse
 
 class CameraClient():
     def __init__(self, ip='localhost', port=5000, debug=False):
@@ -83,7 +84,18 @@ class ReceiverThread(threading.Thread):
             print msg
 
 if __name__ == "__main__":
-    camera = CameraClient(debug=True)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-a", "--ip-address", required=False, default="localhost", help="IP address of Camera server. Default localhost")
+    ap.add_argument("-p", "--port", required=False, type=int, default=5000, help="Port of the Camera server. Default 5000")
+
+    args = vars(ap.parse_args())
+
+    print(args)
+
+    ip = args.get("ip_address")
+    port = args.get("port")
+
+    camera = CameraClient(ip=ip, port=port, debug=True)
 
     while True:
         (grabbed, frame) = camera.read()
